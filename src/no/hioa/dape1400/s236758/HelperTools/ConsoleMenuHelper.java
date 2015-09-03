@@ -59,11 +59,11 @@ public class ConsoleMenuHelper {
         }
 
         if(this.getMethodSize() > 1) {
-            finalDashboard = String.format("%s \nInput integer between 1 and %d (or nothing, to quit) then press \"Enter\"",
-                    dashboard.toString(), this.getMethodSize()) ;
+            finalDashboard = String.format("%s \nInput integer between 1 and %d (or nothing) then press \"Enter\"",
+                    dashboard, this.getMethodSize()) ;
         } else {
             finalDashboard = String.format("%s \nInput integer 1 (or nothing) then press \"Enter\"",
-                    dashboard.toString()) ;
+                    dashboard) ;
         }
 
         while(keepGoing) {
