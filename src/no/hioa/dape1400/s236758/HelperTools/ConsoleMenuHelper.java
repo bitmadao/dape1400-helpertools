@@ -1,6 +1,8 @@
 package no.hioa.dape1400.s236758.HelperTools;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 
 /**
@@ -8,19 +10,19 @@ import java.util.ArrayList;
  */
 public class ConsoleMenuHelper {
     private int nextMenuID ;
-    private ArrayList<Runnable> methods ;
+    private Map<Integer, Runnable> methods ;
     private int methodSize ;
     private StringBuilder dashboard ;
 
     public ConsoleMenuHelper(String menuName) {
         this.dashboard = new StringBuilder().append(menuName).append("\n");
-        this.methods = new ArrayList<>() ;
+        this.methods = new HashMap<>() ;
         this.nextMenuID = 1 ;
     }
 
     public void addItem(String menuText, Runnable methodName) {
         this.dashboard.append(menuItemText(menuText)) ;
-        this.methods.add(this.getNextMenuID(), methodName);
+        this.methods.put(this.getNextMenuID(), methodName);
         this.increaseNextMenuID();
     }
 
@@ -30,21 +32,57 @@ public class ConsoleMenuHelper {
 
     public int getMethodSize() {
         this.methodSize = this.methods.size() ;
-        return methodSize ;
+        return this.methodSize ;
     }
-    public Runnable getMethod(int index) {
+    private Runnable getMethod(int index) {
         return methods.get(index) ;
-    }
-
-    public int getPreviousMenuID() {
-        return this.getNextMenuID() - 1;
     }
 
     private void increaseNextMenuID() {
         this.nextMenuID ++;
     }
 
-    public String menuItemText(String itemText) {
+    private String menuItemText(String itemText) {
         return String.format("\t%d) %s\n",this.getNextMenuID(), itemText);
+    }
+
+    public void runMenu() {
+        Scanner scanner = new Scanner(System.in) ;
+        String input ;
+        String finalDashboard ;
+        int intForMenu ;
+        boolean keepGoing = true ;
+
+        if(this.getMethodSize() == 0) {
+            System.out.println("No menu items added..") ;
+            return ;
+        }
+
+        if(this.getMethodSize() > 1) {
+            finalDashboard = String.format("%s \nInput integer between 1 and %d (or nothing, to quit) then press \"Enter\"",
+                    dashboard.toString(), this.getMethodSize()) ;
+        } else {
+            finalDashboard = String.format("%s \nInput integer 1 (or nothing) then press \"Enter\"",
+                    dashboard.toString()) ;
+        }
+
+        while(keepGoing) {
+            System.out.println(finalDashboard);
+            input = scanner.nextLine();
+            if(input.toString().isEmpty()) {
+                keepGoing = false ;
+                continue ;
+            }
+
+            if (input.matches("^[0-9]*")) {
+                intForMenu = Integer.parseInt(input);
+
+                if(intForMenu <= this.getMethodSize()) {
+                    this.getMethod(intForMenu).run();
+                }
+            }
+
+            System.out.println("Unrecognized input") ;
+        }
     }
 }
