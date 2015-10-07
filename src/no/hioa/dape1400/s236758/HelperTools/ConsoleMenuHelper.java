@@ -67,7 +67,7 @@ public class ConsoleMenuHelper {
         while(keepGoing) {
             System.out.println(finalDashboard);
             input = scanner.nextLine();
-            if(input.toString().isEmpty()) {
+            if(input.isEmpty()) {
                 keepGoing = false ;
                 continue ;
             }
