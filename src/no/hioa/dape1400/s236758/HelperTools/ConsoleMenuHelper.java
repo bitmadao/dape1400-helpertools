@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class ConsoleMenuHelper {
     private int nextMenuID ;
     private Map<Integer, Runnable> methods ;
-    private int methodSize ;
     private StringBuilder dashboard ;
 
     public ConsoleMenuHelper(String menuName) {
@@ -31,8 +30,7 @@ public class ConsoleMenuHelper {
     }
 
     public int getMethodSize() {
-        this.methodSize = this.methods.size() ;
-        return this.methodSize ;
+        return this.methods.size() ;
     }
     private Runnable getMethod(int index) {
         return methods.get(index) ;
