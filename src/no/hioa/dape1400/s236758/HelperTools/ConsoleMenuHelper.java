@@ -77,6 +77,7 @@ public class ConsoleMenuHelper {
 
                 if(intForMenu <= this.getMethodSize()) {
                     this.getMethod(intForMenu).run();
+                    continue ;
                 }
             }
 
